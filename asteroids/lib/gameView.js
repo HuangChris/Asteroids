@@ -18,6 +18,7 @@ A.GameView.prototype.start = function(){
     that.game.moveObjects();
     that.game.draw(that.ctx);
     that.game.checkCollisions(that.ctx, interval);
+    that.game.addMoreAsteroids();
   }, 1000 / 60);
 };
 

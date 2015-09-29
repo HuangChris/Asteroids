@@ -25,6 +25,13 @@ Game.prototype.addAsteroids = function() {
   }
 };
 
+Game.prototype.addMoreAsteroids = function(){
+  if(this.asteroids.length === 0){
+  STARTASTEROIDS++;
+  this.addAsteroids();
+  }
+};
+
 Game.prototype.draw = function (ctx) {
     ctx.clearRect(0, 0, 1000, 1000);
     ctx.fillStyle = "black";

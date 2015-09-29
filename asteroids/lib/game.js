@@ -51,9 +51,12 @@ Game.prototype.checkCollisions = function(ctx, interval){
     for (var j = 0; j < this.bullets.length; j++) {
       if (this.asteroids[i].collideWith(this.bullets[j])) {
         this.asteroids[i].blowUp(ctx);
-        this.asteroids.splice(i);
         var index = this.allObjects.indexOf(this.asteroids[i]);
-        this.allObjects.splice(index);
+        this.asteroids.splice(i, 1);
+        this.allObjects.splice(index, 1);
+        var bulletIndex = this.allObjects.indexOf(this.bullets[j]);
+        this.allObjects.splice(bulletIndex, 1);
+        this.bullets.splice(j, 1);
       }
     }
     //we have ghost asteroids roaming around after their death.

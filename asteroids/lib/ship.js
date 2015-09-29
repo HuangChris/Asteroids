@@ -25,7 +25,7 @@ A.Ship.prototype.power = function (dir) {
 };
 
 A.Ship.prototype.rotate = function (direction) {
-  this.orientation += direction * 0.1;
+  this.rotation += direction * 0.1;
 };
 
 A.Ship.prototype.fireBullet = function (game) {

@@ -3,6 +3,7 @@
 * These aren't so much asteroids as... round things (I love the round things!)
 * But you can blow them up, and they can kill you.  
 * Fly your power button around and do what you can to kill the round things before they kill you.
+* You probably thought this might have instructions on how to play Asteroids.  Nope!
 
 ## Things to add later:
 * Maybe make them not round things?

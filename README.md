@@ -7,3 +7,6 @@
 ## Things to add later:
 * Maybe make them not round things?
 * Maybe make your ship not a power button?
+* Maybe make no-longer-round things split into smaller round things when you hit them?
+* Maybe fix that thing where the controls also move the screen around?
+* Maybe add game features like lives and score and levels?

@@ -17,8 +17,10 @@
     <script>
     var canvasEl = document.getElementById("canvas");
     var game = new window.Asteroids.Game ();
-    game.addAsteroids(canvasEl);
+    game.addAsteroids();
     var view = new window.Asteroids.GameView(game, canvasEl);
+    // view.resize();
+    // view.game.draw(view.ctx)
     view.start();
     </script>
   </body>

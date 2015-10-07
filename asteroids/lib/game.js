@@ -38,8 +38,7 @@ Game.prototype.draw = function (ctx) {
     ctx.fillRect(0,0,window.innerWidth,window.innerHeight);
     this.allObjects.forEach(function(el) {
       el.draw(ctx);
-      }
-    );
+    });
   };
 
 Game.prototype.moveObjects = function () {
@@ -66,8 +65,6 @@ Game.prototype.checkCollisions = function(ctx, interval){
         this.bullets.splice(j, 1);
       }
     }
-    //we have ghost asteroids roaming around after their death.
-    //FIX
     //LIMIT bullets
   }
 };

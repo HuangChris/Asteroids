@@ -6,7 +6,7 @@ var A = window.Asteroids;
 var MAXSPEED = 20;
 A.Ship = function(){
   var that = this;
-  options = {
+  var options = {
     radius: 10,
     pos: [300,300],
     vel: [0,0],

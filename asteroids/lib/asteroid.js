@@ -22,6 +22,31 @@ A.Asteroid.prototype.collideWith = function(object){
    if(this.radius + object.radius > A.Util.distance(this, object)){
      return true;
    }
+
+  //All this crap might be close to something correct...
+  //But it might be easier to make the ship and bullets into straight lines.
+  //The bullet is small enough we can probably hide the fact that it's a square.
+  
+  // if(1.5 * this.radius + object.radius > A.Util.distance(this,object)) {
+  //   var lines = [];
+  //   this.points.forEach(function(point, idx){
+  //     if(idx === 0) {
+  //       lines.push(A.Util.line(point,this.points[10]))
+  //     } else {
+  //       lines.push(A.Util.line(point, this.points[idx - 1]))
+  //     }
+  //   }.bind(this))
+  //
+  //   return lines.some(function(line){
+  //     var sum = line[2] * line[0] + line[1] + object.pos[0];
+  //     var b = -2 * (object.pos[0] + line[2] * sum);
+  //     var a = (1 + line[2]*line[2])
+  //     var c = Math.pow(object.pos[0],2) + Math.pow(sum, 2)
+  //         + Math.pow(object.radius, 2);
+  //     return ((-b + Math.sqrt(b*b - 4 * a * c))/(2 * a) ||
+  //         (-b - Math.sqrt(b*b - 4 * a * c))/(2 * a) );
+  //   });
+  // }
 };
 
 A.Asteroid.prototype.blowUp = function(ctx){

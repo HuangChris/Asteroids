@@ -33,3 +33,8 @@ if (typeof Asteroids === 'undefined') {
   Util.distance = function(object1, object2) {
     return Math.sqrt(Math.pow((object1.pos[0]- object2.pos[0]), 2) + Math.pow((object1.pos[1] - object2.pos[1]), 2));
   };
+
+  Util.line = function(point1, point2) {
+    var m = (point2[1] - point1[1]) / (point2[0] - point1[0]);
+    return [point1[0],point1[1],m];
+  };

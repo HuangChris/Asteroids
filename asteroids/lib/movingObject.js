@@ -84,10 +84,10 @@
   }
 
   A.MovingObject.prototype.wrap = function(){
-    if(this.pos[0] > window.innerWidth + 50){
+    if(this.pos[0] > window.innerWidth + 25){
       this.pos[0] = 0;
     }
-    if(this.pos[1] > window.innerHeight + 50){
+    if(this.pos[1] > window.innerHeight + 25){
       this.pos[1] = 0;
     }
     if(this.pos[0] < -50){

@@ -25,8 +25,6 @@ if (typeof Asteroids === 'undefined') {
       vel[1] = vel[1] * -1;
       vel[0] = vel[0] * -1;
     }
-    // var speed = Math.random(); //or a set speed
-    // vel[1] = Math.sqrt(Math.pow(vel[0],2) - Math.pow(speed,2));
     return vel;
   };
 

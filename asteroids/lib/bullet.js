@@ -17,7 +17,6 @@ A.Bullet = function (ship) {
 A.Util.inherits(A.Bullet, A.MovingObject);
 
 A.Bullet.prototype.draw = function (ctx) {
-  debugger;
   ctx.fillStyle = this.color;
   ctx.beginPath();
 
@@ -31,4 +30,14 @@ A.Bullet.prototype.draw = function (ctx) {
   );
   ctx.fill();
   // ctx.stroke();
+}
+
+A.Bullet.prototype.wrap = function(caller) {
+  if(this.wrapped) {
+    if(A.MovingObject.prototype.wrap.call(this)){
+      caller.removeBullet(this);
+    }
+  }else {
+    this.wrapped = (A.MovingObject.prototype.wrap.call(this))
+  }
 }

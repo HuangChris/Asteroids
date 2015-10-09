@@ -2,7 +2,7 @@ if (typeof Asteroids === 'undefined') {
   window.Asteroids = {};
 }
 
-var STARTASTEROIDS = 10;
+var STARTASTEROIDS = 1;
 
 var Game = window.Asteroids.Game = function () {
   this.asteroids = [];
@@ -32,6 +32,13 @@ Game.prototype.addMoreAsteroids = function(){
   }
 };
 
+Game.prototype.removeBullet = function(bullet) {
+  var idx = this.bullets.indexOf(bullet)
+  this.bullets.splice(idx, 1);
+  var idx = this.allObjects.indexOf(bullet)
+  this.allObjects.splice(idx, 1);
+}
+
 Game.prototype.draw = function (ctx) {
     ctx.clearRect(0, 0, 1000, 1000);
     ctx.fillStyle = "black";
@@ -43,8 +50,8 @@ Game.prototype.draw = function (ctx) {
 
 Game.prototype.moveObjects = function () {
   this.allObjects.forEach(function(el) {
-    el.move();
-    });
+    el.move(this);
+  }.bind(this));
   };
 
 Game.prototype.checkCollisions = function(ctx, interval){

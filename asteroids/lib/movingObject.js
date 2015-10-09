@@ -11,8 +11,9 @@
     this.color = options.color;
     this.orientation = options.orientation || (2*Math.PI * Math.random())
     // this.orientation = options.orientation || 0;
+    // 0 is falsey
     if (options.rotation === undefined) {
-      options.rotation = Math.random() / 5;
+      options.rotation = (Math.random() - 0.5) / 3;
     }
     this.rotation = options.rotation;
   };
@@ -33,6 +34,9 @@
     // );
     // // ctx.fill();
     // ctx.stroke();
+
+    //Probably makes more sense to put that back, and move this to asteroid?
+    //or just move this, and make one for bullet specifically.
     ctx.strokeStyle = this.color;
     ctx.beginPath();
     ctx.moveTo(this.points[0][0], this.points[0][1]);
@@ -68,40 +72,38 @@
       return [xPos + radMult * this.radius * Math.cos(ori + rotAdd * Math.PI/5),
         yPos + radMult * this.radius * Math.sin(ori + rotAdd * Math.PI/5), radMult]
     }.bind(this);
-    vertices.push(point(radii.shift(),0));
-    vertices.push(point(radii.shift(),1));
-    vertices.push(point(radii.shift(),2));
-    vertices.push(point(radii.shift(),3));
-    vertices.push(point(radii.shift(),4));
-    vertices.push(point(radii.shift(),5));
-    vertices.push(point(radii.shift(),6));
-    vertices.push(point(radii.shift(),7));
-    vertices.push(point(radii.shift(),8));
-    vertices.push(point(radii.shift(),9));
-    vertices.push(point(radii.shift(),10));
 
+    for(var i = 0; i < 11; i ++) {
+    vertices.push(point(radii.shift(), i))
+    }
     return vertices;
   }
 
   A.MovingObject.prototype.wrap = function(){
+    var wrapped = false;
     if(this.pos[0] > window.innerWidth + 25){
       this.pos[0] = 0;
+      wrapped = true;
     }
     if(this.pos[1] > window.innerHeight + 25){
       this.pos[1] = 0;
+      wrapped = true;
     }
-    if(this.pos[0] < -50){
+    if(this.pos[0] < -25){
       this.pos[0] = window.innerWidth;
+      wrapped = true;
     }
-    if(this.pos[1] < -50){
+    if(this.pos[1] < -25){
       this.pos[1] = window.innerHeight;
+      wrapped = true;
     }
+    return wrapped;
   };
 
-  A.MovingObject.prototype.move = function () {
+  A.MovingObject.prototype.move = function (caller) {
     this.pos[0] += this.vel[0];
     this.pos[1] += this.vel[1];
     this.orientation += this.rotation;
     this.movePoints();
-    this.wrap();
+    this.wrap(caller);
   };

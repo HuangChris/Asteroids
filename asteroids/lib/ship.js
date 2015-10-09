@@ -52,17 +52,30 @@ A.Ship.prototype.fireBullet = function (game) {
 A.Ship.prototype.draw = function (ctx) {
   ctx.strokeStyle = this.color;
   ctx.beginPath();
-    ctx.arc(
-      this.pos[0],
-      this.pos[1],
-      this.radius,
-      0,
-      2 * Math.PI,
-      false
-    );
+    // ctx.arc(
+    //   this.pos[0],
+    //   this.pos[1],
+    //   this.radius,
+    //   0,
+    //   2 * Math.PI,
+    //   false
+    // );
     // Added a pointer for the ship's direction.
-    ctx.moveTo(this.pos[0],this.pos[1]);
-    ctx.lineTo(this.pos[0]+15*Math.cos(this.orientation),
-      this.pos[1]- 15*Math.sin(this.orientation));
+    // ctx.moveTo(this.pos[0],this.pos[1]);
+    // ctx.lineTo(this.pos[0]+15*Math.cos(this.orientation),
+    ctx.moveTo(this.pos[0]+20*Math.cos(this.orientation),
+      this.pos[1]- 20*Math.sin(this.orientation));
+    ctx.lineTo(this.pos[0]+10*Math.cos(this.orientation + 2 * Math.PI / 3),
+      this.pos[1]- 10*Math.sin(this.orientation + 2 * Math.PI / 3));
+    ctx.lineTo(this.pos[0]+7*Math.cos(this.orientation + 2 * Math.PI / 3),
+      this.pos[1]- 7*Math.sin(this.orientation + 2 * Math.PI / 3));
+
+    ctx.lineTo(this.pos[0]+7*Math.cos(this.orientation + 4 * Math.PI / 3),
+      this.pos[1]- 7*Math.sin(this.orientation + 4 * Math.PI / 3));
+    ctx.lineTo(this.pos[0]+10*Math.cos(this.orientation + 4 * Math.PI / 3),
+      this.pos[1]- 10*Math.sin(this.orientation + 4 * Math.PI / 3));
+    ctx.lineTo(this.pos[0]+20*Math.cos(this.orientation),
+      this.pos[1]- 20*Math.sin(this.orientation));
+      //turned it into a triangle.
   ctx.stroke();
 };

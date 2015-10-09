@@ -2,7 +2,7 @@ if (typeof Asteroids === 'undefined') {
   window.Asteroids = {};
 }
 
-var STARTASTEROIDS = 10;
+var STARTASTEROIDS = 5;
 
 var Game = window.Asteroids.Game = function () {
   this.asteroids = [];
@@ -62,8 +62,10 @@ Game.prototype.checkCollisions = function(ctx, interval){
       return;
     }
     for (var j = 0; j < this.bullets.length; j++) {
+      //this is awful, I'm mutating an array while iterating through.
+      if(i >= this.asteroids.length) {return;}
       if (this.asteroids[i].collideWith(this.bullets[j])) {
-        this.asteroids[i].blowUp(ctx);
+        this.asteroids[i].blowUp(this);
         var index = this.allObjects.indexOf(this.asteroids[i]);
         this.asteroids.splice(i, 1);
         this.allObjects.splice(index, 1);
@@ -72,7 +74,6 @@ Game.prototype.checkCollisions = function(ctx, interval){
         this.bullets.splice(j, 1);
       }
     }
-    //LIMIT bullets
   }
 };
 

@@ -5,12 +5,12 @@ if (typeof Asteroids === 'undefined') {
 var A = window.Asteroids;
 
 var COLOR = ["#00FF00", "#0000FF", "#C0C0C0", "#FFFF00", "#800080", "#FF00FF"];
-var RADIUS = 25;
-A.Asteroid = function(pos, radius){
+var RADIUS = 50;
+A.Asteroid = function(pos, radius, vel){
   var that = this;
   var options = {
     pos: pos,
-    vel: A.Util.randomVector(),
+    vel: vel || A.Util.randomVector(),
     radius: radius || RADIUS,
     color: COLOR[Math.floor(Math.random()*COLOR.length)]
   };
@@ -26,7 +26,7 @@ A.Asteroid.prototype.collideWith = function(object){
   //All this crap might be close to something correct...
   //But it might be easier to make the ship and bullets into straight lines.
   //The bullet is small enough we can probably hide the fact that it's a square.
-  
+
   // if(1.5 * this.radius + object.radius > A.Util.distance(this,object)) {
   //   var lines = [];
   //   this.points.forEach(function(point, idx){
@@ -49,7 +49,17 @@ A.Asteroid.prototype.collideWith = function(object){
   // }
 };
 
-A.Asteroid.prototype.blowUp = function(ctx){
+A.Asteroid.prototype.blowUp = function(game){
+  if (this.radius > 20) {
+    xVel = this.vel[0];
+    yVel = this.vel[1];
+    var vel1 = [xVel * -1.5, yVel * -1.5];
+    var vel2 = [xVel * 1.5, yVel * 1.5];
+    var asteroids = [new A.Asteroid(this.pos.slice(), this.radius / 2, vel1),
+       new A.Asteroid(this.pos.slice(), this.radius / 2, vel2)];
+    game.allObjects = game.allObjects.concat(asteroids);
+    game.asteroids = game.asteroids.concat(asteroids);
+  }
     this.color = "#000000";
     this.radius = 0;
     this.pos = [-1,-1];

@@ -2,7 +2,7 @@ if (typeof Asteroids === 'undefined') {
   window.Asteroids = {};
 }
 
-var STARTASTEROIDS = 1;
+var STARTASTEROIDS = 10;
 
 var Game = window.Asteroids.Game = function () {
   this.asteroids = [];

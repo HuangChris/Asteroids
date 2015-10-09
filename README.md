@@ -7,9 +7,10 @@ of the asteroid might be invisible._
 * You probably thought this might have real instructions on how to play Asteroids.  Nope!
 
 ## Things to add later:
-* Put a distance limit on bullets
+* Put a distance limit on bullets __DONE__
 * Maybe make them not round things? __DONE__
-* Maybe make your ship not a power button?
-* Maybe make no-longer-round things split into smaller not-round things when you hit them?
+* Maybe make your ship not a power button? __DONE__
+* Maybe make no-longer-round things split into smaller not-round things when you hit them? __DONE__
 * Maybe fix that thing where the controls also move the screen around?
 * Maybe add game features like lives and score and levels?
+* Definitely clean up some ugly ugly code?

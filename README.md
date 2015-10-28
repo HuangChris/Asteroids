@@ -12,5 +12,5 @@ of the asteroid might be invisible._
 * Maybe make your ship not a power button? __DONE__
 * Maybe make no-longer-round things split into smaller not-round things when you hit them? __DONE__
 * Maybe fix that thing where the controls also move the screen around? __DONE__
-* Maybe add game features like lives and score and levels?
+* Maybe add game features like lives and score and levels? __DONE__
 * Definitely clean up some ugly ugly code?

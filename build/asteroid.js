@@ -52,12 +52,12 @@ A.Asteroid.prototype.collideWith = function (object) {
 };
 
 A.Asteroid.prototype.blowUp = function (game) {
-  var CHILDREN = 2;
+  var CHILDREN = 10;
   if (this.radius > 20) {
     var newVels = [];
     for (var i = 0; i < CHILDREN; i++) {
       newVels[i] = Util.makeNegatives().map((function (val, idx) {
-        return this.vel[idx] * (1.4 + 0.2 * i) * val;
+        return this.vel[idx] * (1.4 + 0.3 * i) * val;
       }).bind(this));
     }
     var asteroids = [];

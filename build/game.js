@@ -15,8 +15,6 @@ var Game = window.Asteroids.Game = function (scorePoints) {
   this.lost = false;
   this.canvasEl = document.getElementById("canvas");
   this.context = this.canvasEl.getContext("2d");
-  this.canvasEl.height = window.innerHeight * 0.9;
-  this.canvasEl.width = window.innerWidth * 0.9;
 };
 
 Game.prototype.addAsteroids = function () {
@@ -40,12 +38,17 @@ Game.prototype.addMoreAsteroids = function () {
   }
 };
 
-Game.prototype.removeBullet = function (bullet) {
-  var idx = this.bullets.indexOf(bullet);
-  this.bullets.splice(idx, 1);
-  var idx = this.allObjects.indexOf(bullet);
-  this.allObjects.splice(idx, 1);
+Game.prototype.removeObject = function (array) {
+  for (var i = 0; i < array.length; i++) {
+    if (array[i].removable) {
+      var j = this.allObjects.indexOf(array[i]);
+      array.splice(i, 1);
+      this.allObjects.splice(j, 1);
+      i = -1;
+    }
+  }
 };
+
 Game.prototype.move = function () {
   this.canvasEl.height = window.innerHeight * 0.9;
   this.canvasEl.width = window.innerWidth * 0.9;
@@ -71,35 +74,25 @@ Game.prototype.moveObjects = function () {
 };
 
 Game.prototype.checkCollisions = function (ctx, interval) {
-  for (var i = 0; i < this.asteroids.length; i++) {
-    if (this.asteroids[i].collideWith(this.ship)) {
-      this.gameOver(ctx);
-      return;
+  this.asteroids.forEach((function (asteroid) {
+    if (asteroid.collideWith(this.ship)) {
+      this.gameOver();
+      // make this blow up the asteroid?
     }
-    for (var j = 0; j < this.bullets.length; j++) {
-      //this is awful, I'm mutating an array while iterating through.
-      if (i >= this.asteroids.length) {
-        return;
+    this.bullets.forEach((function (bullet) {
+      if (asteroid.collideWith(bullet)) {
+        this.scorePoints(1000 / asteroid.radius);
+        asteroid.blowUp(this);
+        asteroid.removable = true;
+        bullet.removable = true;
       }
-      if (this.asteroids[i].collideWith(this.bullets[j])) {
-        this.scorePoints(this.asteroids[i].radius);
-        this.asteroids[i].blowUp(this);
-        var index = this.allObjects.indexOf(this.asteroids[i]);
-        this.asteroids.splice(i, 1);
-        this.allObjects.splice(index, 1);
-        var bulletIndex = this.allObjects.indexOf(this.bullets[j]);
-        this.allObjects.splice(bulletIndex, 1);
-        this.bullets.splice(j, 1);
-      }
-    }
-  }
+    }).bind(this));
+    this.removeObject(this.bullets);
+  }).bind(this));
+  this.removeObject(this.asteroids);
 };
 
-Game.prototype.gameOver = function (ctx) {
+Game.prototype.gameOver = function () {
   this.ship.moveToSafety();
   this.lost = true;
-  // this.allObjects = [];
-  // ctx.fillStyle = "white";
-  // ctx.font = "italic "+80+"pt Arial ";
-  // ctx.fillText("Game Over", 114,167);
 };

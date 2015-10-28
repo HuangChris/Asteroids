@@ -52,15 +52,20 @@ A.Asteroid.prototype.collideWith = function (object) {
 };
 
 A.Asteroid.prototype.blowUp = function (game) {
+  var CHILDREN = 2;
   if (this.radius > 20) {
     var newVels = [];
-    for (var i = 0; i < 2; i++) {
+    for (var i = 0; i < CHILDREN; i++) {
       newVels[i] = Util.makeNegatives().map((function (val, idx) {
         return this.vel[idx] * (1.4 + 0.2 * i) * val;
       }).bind(this));
     }
-
-    var asteroids = [new A.Asteroid(this.pos.slice(), this.radius / 2, newVels[0]), new A.Asteroid(this.pos.slice(), this.radius / 2, newVels[1])];
+    var asteroids = [];
+    for (var i = 0; i < CHILDREN; i++) {
+      asteroids.push(new A.Asteroid(this.pos.slice(), this.radius / 2, newVels[i]));
+    }
+    // var asteroids = [new A.Asteroid(this.pos.slice(), this.radius / 2, newVels[0]),
+    //    new A.Asteroid(this.pos.slice(), this.radius / 2, newVels[1])];
     game.allObjects = game.allObjects.concat(asteroids);
     game.asteroids = game.asteroids.concat(asteroids);
   }

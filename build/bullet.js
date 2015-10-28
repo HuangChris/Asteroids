@@ -26,10 +26,10 @@ A.Bullet.prototype.draw = function (ctx) {
   // ctx.stroke();
 };
 
-A.Bullet.prototype.wrap = function (caller) {
+A.Bullet.prototype.wrap = function () {
   if (this.wrapped) {
     if (A.MovingObject.prototype.wrap.call(this)) {
-      caller.removeBullet(this);
+      this.removable = true;
     }
   } else {
     this.wrapped = A.MovingObject.prototype.wrap.call(this);

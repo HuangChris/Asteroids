@@ -52,7 +52,7 @@ A.Asteroid.prototype.collideWith = function (object) {
 };
 
 A.Asteroid.prototype.blowUp = function (game) {
-  var CHILDREN = 10;
+  var CHILDREN = 2;
   if (this.radius > 20) {
     var newVels = [];
     for (var i = 0; i < CHILDREN; i++) {

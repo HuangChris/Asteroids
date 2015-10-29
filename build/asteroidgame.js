@@ -4,7 +4,7 @@ window.AsteroidsShow = React.createClass({
   displayName: "AsteroidsShow",
 
   getInitialState: function getInitialState() {
-    return { lives: 300, points: 0, gameState: "new", highScore: 0 };
+    return { lives: 3, points: 0, gameState: "new", highScore: 0 };
   },
 
   componentWillMount: function componentWillMount() {

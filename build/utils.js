@@ -46,5 +46,6 @@ Util.distance = function (object1, object2) {
 
 Util.line = function (point1, point2) {
   var m = (point2[1] - point1[1]) / (point2[0] - point1[0]);
-  return [point1[0], point1[1], m];
+  return { slope: m, yInt: point1[1] - m * point1[0],
+    point1: point1, point2: point2 };
 };

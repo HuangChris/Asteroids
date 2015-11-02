@@ -29,7 +29,7 @@ A.Asteroid.prototype.collideWith = function (object) {
     var lines = [];
     this.points.forEach((function (point, idx) {
       if (idx === 0) {
-        lines.push(A.Util.line(point, this.points[1]));
+        lines.push(A.Util.line(point, this.points[this.points.length - 1]));
       } else {
         lines.push(A.Util.line(point, this.points[idx - 1]));
       }
@@ -41,14 +41,10 @@ A.Asteroid.prototype.collideWith = function (object) {
       if (asteroidToObject.slope !== line.slope) {
         intercept.x = (line.yInt - asteroidToObject.yInt) / (asteroidToObject.slope - line.slope);
         intercept.y = intercept.x * line.slope + line.yInt;
-      } else {
-        return false;
-      }
-      if (intercept.x < line.point1[0] && intercept.x > line.point2[0] || intercept.x > line.point1[0] && intercept.x < line.point2[0]) {
-        console.log(A.Util.distance({ pos: [intercept.x, intercept.y] }, object) < object.radius);
-        return A.Util.distance({ pos: [intercept.x, intercept.y] }, object) < object.radius;
-      } else {
-        return false;
+
+        if (intercept.x < line.point1[0] && intercept.x > line.point2[0] || intercept.x > line.point1[0] && intercept.x < line.point2[0]) {
+          return A.Util.distance({ pos: [intercept.x, intercept.y] }, object) < object.radius;
+        }
       }
     }).bind(this));
   }

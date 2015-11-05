@@ -43,7 +43,10 @@ Game.prototype.removeObject = function (array) {
   for (var i = 0; i < array.length; i++) {
     if (array[i].removable) {
       var j = this.allObjects.indexOf(array[i]);
-      array.splice(i, 1);
+      if (this.allObjects !== array) {
+        //so we can pass allObjects to remove explosions.
+        array.splice(i, 1);
+      }
       this.allObjects.splice(j, 1);
       i = -1;
     }
@@ -55,7 +58,7 @@ Game.prototype.move = function () {
   this.canvasEl.width = window.innerWidth * 0.9;
   this.moveObjects();
   this.draw(this.context);
-  this.checkCollisions(this.context);
+  this.checkCollisions(this.context); // don't need to pass context?  Hell, why would we ever?
   this.addMoreAsteroids();
 };
 
@@ -77,23 +80,30 @@ Game.prototype.moveObjects = function () {
 Game.prototype.checkCollisions = function (ctx, interval) {
   this.asteroids.forEach((function (asteroid) {
     if (asteroid.collideWith(this.ship)) {
+      this.allObjects.push(new window.Asteroids.Explosion(this.ship.pos));
       this.gameOver();
+      this.allObjects.push(new window.Asteroids.Explosion(this.ship.pos)); // It was cool to identify the new location
       // make this blow up the asteroid?
     }
     this.bullets.forEach((function (bullet) {
-      if (asteroid.collideWith(bullet)) {
+      var collisionPos = asteroid.collideWith(bullet);
+      if (collisionPos) {
         this.scorePoints(1000 / asteroid.radius);
         asteroid.blowUp(this);
         asteroid.removable = true;
         bullet.removable = true;
+        this.allObjects.push(new window.Asteroids.Explosion(collisionPos));
       }
     }).bind(this));
     this.removeObject(this.bullets);
   }).bind(this));
   this.removeObject(this.asteroids);
+  this.removeObject(this.allObjects); // odd, but to remove explosions while reusing code.
+  //wait. shit.  this will break stuff.
 };
 
 Game.prototype.gameOver = function () {
+
   this.ship.moveToSafety();
   this.lost = true;
 };

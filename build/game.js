@@ -5,6 +5,7 @@ if (typeof Asteroids === 'undefined') {
 }
 
 var STARTASTEROIDS = 5;
+var BACKGROUND_STARS = 100;
 
 var Game = window.Asteroids.Game = function (scorePoints) {
   this.scorePoints = scorePoints;
@@ -16,6 +17,15 @@ var Game = window.Asteroids.Game = function (scorePoints) {
   this.canvasEl = document.getElementById("canvas");
   this.context = this.canvasEl.getContext("2d");
   this.level = 0;
+  this.stars = this.makeStars();
+};
+
+Game.prototype.makeStars = function () {
+  var stars = [];
+  for (var i = 0; i < BACKGROUND_STARS; i++) {
+    stars.push([Math.random(), Math.random()]);
+  }
+  return stars;
 };
 
 Game.prototype.addAsteroids = function () {
@@ -66,6 +76,10 @@ Game.prototype.draw = function (ctx) {
   ctx.clearRect(0, 0, 2000, 2000);
   ctx.fillStyle = "black";
   ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+  this.stars.forEach(function (pos) {
+    ctx.fillStyle = "white";
+    ctx.fillRect(pos[0] * window.innerWidth, pos[1] * window.innerHeight, 2, 2);
+  });
   this.allObjects.forEach(function (el) {
     el.draw(ctx);
   });

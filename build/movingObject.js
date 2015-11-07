@@ -61,24 +61,29 @@ A.MovingObject.prototype.movePoints = function () {
 };
 
 A.MovingObject.prototype.createVertices = function (radii) {
-  if (radii === undefined) {
+  var POINT_COUNT = 11;
+  if (radii === undefined || radii.length === 0) {
     radii = [];
-    // 11
-    for (var i = 0; i < 11; i++) {
+    for (var i = 0; i < POINT_COUNT; i++) {
       radii.push(1.0 * Math.random() + 0.5);
     }
   }
+
   var vertices = [];
   var xPos = this.pos[0];
   var yPos = this.pos[1];
   var ori = this.orientation;
 
   var point = (function (radMult, rotAdd) {
-    return [xPos + radMult * this.radius * Math.cos(ori + rotAdd * Math.PI / 5), yPos + radMult * this.radius * Math.sin(ori + rotAdd * Math.PI / 5), radMult];
+    return [xPos + radMult * this.radius * Math.cos(ori + rotAdd * 4 * Math.PI / Math.floor(POINT_COUNT)), yPos + radMult * this.radius * Math.sin(ori + rotAdd * 4 * Math.PI / Math.floor(POINT_COUNT)), radMult];
   }).bind(this);
   // 11
-  for (var i = 0; i < 11; i++) {
+  for (var i = 0; i < POINT_COUNT / 2; i++) {
     vertices.push(point(radii.shift(), i));
+    vertices.push(point(radii.shift(), i));
+  }
+  if (vertices.length === 0) {
+    debugger;
   }
   return vertices;
 };

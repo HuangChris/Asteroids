@@ -61,7 +61,7 @@ A.MovingObject.prototype.movePoints = function () {
 };
 
 A.MovingObject.prototype.createVertices = function (radii) {
-  var POINT_COUNT = 11;
+  var POINT_COUNT = 10;
   if (radii === undefined || radii.length === 0) {
     radii = [];
     for (var i = 0; i < POINT_COUNT; i++) {
@@ -81,9 +81,6 @@ A.MovingObject.prototype.createVertices = function (radii) {
   for (var i = 0; i < POINT_COUNT / 2; i++) {
     vertices.push(point(radii.shift(), i));
     vertices.push(point(radii.shift(), i));
-  }
-  if (vertices.length === 0) {
-    debugger;
   }
   return vertices;
 };

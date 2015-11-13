@@ -64,8 +64,8 @@ Game.prototype.removeObject = function (array) {
 };
 
 Game.prototype.move = function () {
-  this.canvasEl.height = window.innerHeight * 0.9;
-  this.canvasEl.width = window.innerWidth * 0.9;
+  this.canvasEl.height = window.innerHeight * 0.83;
+  this.canvasEl.width = window.innerWidth * 0.83;
   this.moveObjects();
   this.draw(this.context);
   this.checkCollisions(this.context); // don't need to pass context?  Hell, why would we ever?

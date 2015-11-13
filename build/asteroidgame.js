@@ -9,11 +9,13 @@ window.AsteroidsShow = React.createClass({
 
   componentWillMount: function componentWillMount() {
     var canvasEl = document.getElementById("canvas");
-    canvasEl.height = window.innerHeight * 0.9;
-    canvasEl.width = window.innerWidth * 0.9;
+    canvasEl.height = window.innerHeight * 0.83;
+    canvasEl.width = window.innerWidth * 0.83;
+    window.key('enter', this.startGame);
   },
 
   startGame: function startGame() {
+    key.unbind('enter');
     this.game = new Asteroids.Game(this.getPoints);
     this.bindKeys();
     this.game.addAsteroids();
@@ -25,6 +27,7 @@ window.AsteroidsShow = React.createClass({
         if (this.state.lives === 0) {
           clearInterval(this.timerId);
           this.setState({ gameState: "lost" });
+          window.key('enter', this.resetGame);
           if (this.state.points > this.state.highScore) {
             this.setState({ highScore: this.state.points });
           }
@@ -85,11 +88,10 @@ window.AsteroidsShow = React.createClass({
       return React.createElement(
         "div",
         null,
-        "Welcome To Asteroids! ",
         React.createElement(
-          "button",
-          { onClick: this.startGame },
-          "Start Game"
+          "h3",
+          null,
+          "Welcome To Asteroids! Press \"Enter\" to Start."
         )
       );
     } else if (this.state.gameState === "lost") {
@@ -97,20 +99,24 @@ window.AsteroidsShow = React.createClass({
         "div",
         null,
         React.createElement(
+          "h3",
+          null,
+          "Asteroids! You lost.  Play Again? ",
+          React.createElement(
+            "button",
+            { onClick: this.resetGame },
+            "Yes"
+          )
+        ),
+        React.createElement(
           "p",
           null,
-          "Asteroids!  Lives: ",
+          "Lives: ",
           this.state.lives,
-          "  Points: ",
+          " Points: ",
           this.state.points,
           " High Score: ",
           this.state.highScore
-        ),
-        "You lost.  Play Again? ",
-        React.createElement(
-          "button",
-          { onClick: this.resetGame },
-          "Yes"
         )
       );
     } else {
@@ -118,11 +124,16 @@ window.AsteroidsShow = React.createClass({
         "div",
         null,
         React.createElement(
+          "h3",
+          null,
+          "Asteroids! Arrow keys to move, Spacebar to fire."
+        ),
+        React.createElement(
           "p",
           null,
-          "Asteroids!  Lives: ",
+          "Lives: ",
           this.state.lives,
-          "  Points: ",
+          " Points: ",
           this.state.points,
           " High Score: ",
           this.state.highScore

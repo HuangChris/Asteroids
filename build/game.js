@@ -113,11 +113,20 @@ Game.prototype.checkCollisions = function (ctx, interval) {
   }).bind(this));
   this.removeObject(this.asteroids);
   this.removeObject(this.allObjects); // odd, but to remove explosions while reusing code.
-  //wait. shit.  this will break stuff.
 };
 
 Game.prototype.gameOver = function () {
 
-  this.ship.moveToSafety();
+  this.ship.reset();
+  var safe = false;
+  while (safe) {
+    safe = true;
+    this.asteroids.forEach((function (asteroid) {
+      if (asteroid.collideWith(this.ship)) {
+        this.ship.reset();
+        safe = false;
+      }
+    }).bind(this));
+  }
   this.lost = true;
 };

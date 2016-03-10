@@ -50,9 +50,11 @@ A.Ship.prototype.fireBullet = function (game) {
   game.allObjects.push(bullet);
 };
 
-A.Ship.prototype.moveToSafety = function () {
+A.Ship.prototype.reset = function () {
   this.vel = [0, 0];
-  this.pos = [Math.random() * window.innerWidth * 0.9, Math.random() * window.innerHeight * 0.9];
+  var x = window.innerWidth * 0.3 + Math.random() * window.innerWidth * 0.3;
+  var y = window.innerWidth * 0.3 + Math.random() * window.innerWidth * 0.3;
+  this.pos = [x, y];
 };
 
 A.Ship.prototype.draw = function (ctx) {
